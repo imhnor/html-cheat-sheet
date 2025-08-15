@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>HTML Cheat Sheet — Basics to Advanced</title>
+<style>
+    body { font-family: Arial, sans-serif; background: #f7f7f7; max-width: 1200px; margin: auto; padding: 20px; color: #333; }
+    h1 { color: #0a8de4; text-align: center; margin-bottom: 20px; }
+    .category-buttons { text-align: center; margin-bottom: 20px; }
+    .category-buttons button { background: #3498db; border: none; padding: 8px 14px; margin: 5px; border-radius: 4px; color: white; cursor: pointer; }
+    .category-buttons button:hover { background: #2980b9; }
+    .card { background: #fff; padding: 15px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    h2 { border-bottom: 2px solid #eee; padding-bottom: 5px; color: #444; }
+    .code-container { position: relative; background: #2d2d2d; color: #f8f8f2; border-radius: 6px; margin-top: 10px; overflow-x: auto; }
+    pre { margin: 0; padding: 10px; font-family: monospace; white-space: pre-wrap; }
+    .copy-btn { position: absolute; top: 8px; right: 8px; background: #ff9800; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; color: white; font-size: 12px; }
+    iframe { width: 100%; height: 150px; border: 1px solid #ccc; border-radius: 4px; margin-top: 10px; background: white; }
+</style>
+</head>
+<body>
+
+<h1>HTML Cheat Sheet — Basics to Advanced</h1>
+<div class="category-buttons">
+    <button onclick="filterCategory('basic')">Basic</button>
+    <button onclick="filterCategory('beginner')">Beginner</button>
+    <button onclick="filterCategory('advanced')">Advanced</button>
+    <button onclick="filterCategory('all')">Show All</button>
+</div>
+<div id="cheat-sheet"></div>
+
+<script>
+const snippets = [
+    // ===== BASIC =====
+    {cat:'basic', title:'Basic Structure', desc:'Minimal HTML page skeleton.', code:`<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n<title>My Page</title>\n</head>\n<body>\n<h1>Hello, World!</h1>\n</body>\n</html>`},
+    {cat:'basic', title:'Headings', desc:'Different heading sizes from h1 to h6.', code:`<h1>Main Heading</h1>\n<h2>Subheading</h2>\n<h3>Smaller Heading</h3>`},
+    {cat:'basic', title:'Paragraph & Text Formatting', desc:'Bold, italic, underline, mark.', code:`<p>This is <strong>bold</strong>, <em>italic</em>, <u>underlined</u>, and <mark>highlighted</mark>.</p>`},
+    {cat:'basic', title:'Links', desc:'Hyperlink to another page.', code:`<a href="https://example.com" target="_blank">Visit Example</a>`},
+    {cat:'basic', title:'Image', desc:'Embed image with alt text.', code:`<img src="https://via.placeholder.com/150" alt="Placeholder">`},
+    {cat:'basic', title:'Lists', desc:'Ordered, unordered, description lists.', code:`<ul><li>Item 1</li></ul>\n<ol><li>First</li></ol>`},
+    {cat:'basic', title:'Table', desc:'Table with header and rows.', code:`<table border="1">\n<tr><th>Name</th><th>Age</th></tr>\n<tr><td>Alice</td><td>25</td></tr>\n</table>`},
+    {cat:'basic', title:'Button', desc:'Clickable button.', code:`<button>Click Me</button>`},
+    {cat:'basic', title:'Comment', desc:'HTML comment.', code:`<!-- This is a comment -->`},
+    {cat:'basic', title:'Line Break & HR', desc:'Break and horizontal line.', code:`Line1<br>Line2<hr>`},
+
+    // ===== BEGINNER =====
+    {cat:'beginner', title:'Form', desc:'Basic form.', code:`<form>\n<input type="text" placeholder="Your Name">\n<button type="submit">Submit</button>\n</form>`},
+    {cat:'beginner', title:'Input Types', desc:'Various input fields.', code:`<input type="email"> <input type="date"> <input type="color">`},
+    {cat:'beginner', title:'Textarea', desc:'Multi-line text box.', code:`<textarea rows="4" cols="50"></textarea>`},
+    {cat:'beginner', title:'Select Menu', desc:'Dropdown menu.', code:`<select><option>Option 1</option></select>`},
+    {cat:'beginner', title:'Checkbox & Radio', desc:'Choose single or multiple.', code:`<input type="checkbox"> Check <input type="radio" name="opt"> Yes`},
+    {cat:'beginner', title:'File Upload', desc:'Upload file.', code:`<input type="file">`},
+    {cat:'beginner', title:'Multiple File Upload', desc:'Select multiple files.', code:`<input type="file" multiple>`},
+    {cat:'beginner', title:'Media', desc:'Embed audio/video.', code:`<audio controls></audio> <video controls width="200"></video>`},
+    {cat:'beginner', title:'Iframe', desc:'Embed another webpage.', code:`<iframe src="https://example.com"></iframe>`},
+    {cat:'beginner', title:'Figure & Figcaption', desc:'Image with caption.', code:`<figure><img src="https://via.placeholder.com/150"><figcaption>Caption</figcaption></figure>`},
+
+    // ===== ADVANCED =====
+    {cat:'advanced', title:'Details & Summary', desc:'Collapsible section.', code:`<details><summary>More Info</summary><p>Hidden content.</p></details>`},
+    {cat:'advanced', title:'Progress & Meter', desc:'Visual indicators.', code:`<progress value="50" max="100"></progress> <meter value="0.7">70%</meter>`},
+    {cat:'advanced', title:'Canvas', desc:'Draw shapes with JS.', code:`<canvas id="c" width="200" height="100"></canvas>\n<script>var ctx=document.getElementById('c').getContext('2d');ctx.fillStyle='red';ctx.fillRect(20,20,150,50);<\/script>`},
+    {cat:'advanced', title:'SVG', desc:'Vector graphic.', code:`<svg width="100" height="100"><circle cx="50" cy="50" r="40" fill="yellow" stroke="green" stroke-width="4" /></svg>`},
+    {cat:'advanced', title:'Time', desc:'Machine-readable dates.', code:`<time datetime="2025-08-15">Aug 15, 2025</time>`},
+    {cat:'advanced', title:'Output', desc:'Display calculation.', code:`<form oninput="res.value=parseInt(a.value)+parseInt(b.value)">\n<input type="number" id="a">+<input type="number" id="b">=<output name="res"></output>\n</form>`},
+    {cat:'advanced', title:'Map & Area', desc:'Clickable image map.', code:`<img src="https://via.placeholder.com/300" usemap="#map">\n<map name="map"><area shape="rect" coords="0,0,100,100" href="https://example.com"></map>`},
+    {cat:'advanced', title:'Data Attributes', desc:'Custom data for JS.', code:`<div data-user="123" data-role="admin">User Info</div>`},
+    {cat:'advanced', title:'Meta Tags', desc:'SEO tags.', code:`<meta name="description" content="My webpage">`},
+    {cat:'advanced', title:'Accessibility', desc:'ARIA attributes.', code:`<button aria-label="Close">X</button>`}
+];
+
+function renderSnippets(filter) {
+    const container = document.getElementById('cheat-sheet');
+    container.innerHTML = '';
+    snippets.filter(s => filter==='all'||s.cat===filter).forEach(snippet => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `<h2>${snippet.title}</h2><p>${snippet.desc}</p>
+            <div class="code-container"><button class="copy-btn">Copy</button><pre><code>${snippet.code.replace(/</g,'&lt;')}</code></pre></div>
+            <iframe></iframe>`;
+        container.appendChild(card);
+        const btn = card.querySelector('.copy-btn');
+        const iframe = card.querySelector('iframe');
+        iframe.srcdoc = snippet.code;
+        btn.addEventListener('click', () => {
+            navigator.clipboard.writeText(snippet.code).then(() => {
+                btn.textContent = 'Copied!';
+                setTimeout(() => btn.textContent = 'Copy', 1500);
+            });
+        });
+    });
+}
+
+function filterCategory(cat) { renderSnippets(cat); }
+
+renderSnippets('all');
+</script>
+
+</body>
+</html>
